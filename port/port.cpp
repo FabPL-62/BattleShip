@@ -47,6 +47,7 @@
 #ifndef DISABLE_SCRIPTING
 #include "mods/HookManager.h"
 #include "mods/SymbolResolver.h"
+#include "mods/mod_overlay.h"
 #endif
 #include "renderdoc_trigger.h"
 #include "port_log.h"
@@ -1106,6 +1107,13 @@ static int PortInitImpl(int argc, char* argv[]) {
 	}
 	if (!ssb64::mods::HookManager::Init()) {
 		port_log("SSB64: HookManager::Init failed - mods will not load\n");
+	}
+	/* Overlay bridge: detours Ship::GameOverlay::Draw so mods can paint
+	 * persistent on-screen text via mod_overlay_text() (Input Display and
+	 * future overlay mods). Needs HookManager up; must precede CompileAll
+	 * so mods can call the API from MOD_INIT. */
+	if (!ssb64::mods::ModOverlayInit()) {
+		port_log("SSB64: ModOverlayInit failed - mod overlay text will not render\n");
 	}
 #endif
 

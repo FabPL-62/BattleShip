@@ -6,7 +6,12 @@ from enum import Enum
 from io import BytesIO
 from typing import Optional, Dict
 
-from PIL import Image
+try:
+    from PIL import Image
+except ModuleNotFoundError:
+    # Pillow is only required when converting texture assets (#asset .png
+    # blocks). Code-only mods must be buildable without it.
+    Image = None
 
 class TextureType(Enum):
     Error = 0
@@ -116,13 +121,17 @@ class N64Graphics:
 
     @staticmethod
     def pixels_to_png(texture: Texture, data: bytes) -> bytes:
+        if Image is None:
+            raise RuntimeError("Pillow is required for texture asset conversion (pip install Pillow)")
         img = Image.frombytes("RGBA", (texture.width, texture.height), data)
         out_buffer = BytesIO()
         img.save(out_buffer, format="PNG")
         return out_buffer.getvalue()
 
     @staticmethod
-    def convert_raw_to_n64(texture: Texture, img: Image.Image) -> None:
+    def convert_raw_to_n64(texture: Texture, img: 'Image.Image') -> None:
+        if Image is None:
+            raise RuntimeError("Pillow is required for texture asset conversion (pip install Pillow)")
         texture.width = img.width
         texture.height = img.height
         texture.tex_data_size = TextureTypeUtils.get_buffer_size(texture.texture_type, texture.width, texture.height)
@@ -232,6 +241,8 @@ class N64Graphics:
 
     @staticmethod
     def convert_n64_to_png(texture: Texture) -> Optional[bytes]:
+        if Image is None:
+            raise RuntimeError("Pillow is required for texture asset conversion (pip install Pillow)")
         w, h = texture.width, texture.height
         tex_data = texture.tex_data
         tex_type = texture.texture_type
@@ -367,6 +378,8 @@ class N64Graphics:
         return out_buffer.getvalue()
 
 def convert_png_to_n64_texture(png_bytes: bytes, texture_type: TextureType) -> Texture:
+    if Image is None:
+        raise RuntimeError("Pillow is required for texture asset conversion (pip install Pillow)")
     img = Image.open(BytesIO(png_bytes))
     texture = Texture(0, 0, texture_type)
     N64Graphics.convert_raw_to_n64(texture, img)
