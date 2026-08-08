@@ -1,0 +1,10 @@
+{
+    "name": "InputDisplay",
+    "main": "build.gen",
+    "version": "0.1.0",
+    "website": "https://github.com/FabPL-62/BattleShip",
+    "description": "On-screen input display overlay (buttons + stick) — pilot port of Smash Remix's InputDisplay.asm.",
+    "author": "FabPL-62",
+    "license": "MIT",
+    "code-version": 1
+}
