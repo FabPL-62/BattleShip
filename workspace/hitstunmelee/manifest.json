@@ -1,0 +1,10 @@
+{
+    "name": "HitstunMelee",
+    "main": "build.gen",
+    "version": "1.0.0",
+    "website": "https://example.com",
+    "description": "Melee-style hitstun: knockback divided by 2.5 instead of 1.875 while enabled (Remix src/Hitstun.asm). Toggle in Settings > Gameplay > Smash Remix Mods.",
+    "author": "ssb64-port",
+    "license": "MIT",
+    "code-version": 1
+}

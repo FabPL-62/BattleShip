@@ -1101,6 +1101,16 @@ void PortMenu::AddMenuSettings() {
         .RaceDisable(false)
         .Options(CheckboxOptions().Tooltip("Makes your character temporarily flash in flames on a failed Z-Cancel."));
 
+    // --- Smash Remix mods (each toggle is consumed by the matching mod
+    // in mods/<name>/; without the mod loaded the checkbox does nothing) ---
+    AddWidget(path, "Smash Remix Mods", WIDGET_SEPARATOR_TEXT);
+    AddWidget(path, "Melee Hitstun", WIDGET_CVAR_CHECKBOX)
+        .CVar("mods.hitstunmelee.enabled")
+        .RaceDisable(false)
+        .Options(CheckboxOptions().Tooltip(
+            "Divides knockback by 2.5 instead of 1.875 when computing hitstun, so "
+            "combos feel like Melee. Requires the HitstunMelee mod to be loaded."));
+
     // --- Quality-of-Life (still in Gameplay sidebar) ---
     AddWidget(path, "Quality-of-Life", WIDGET_SEPARATOR_TEXT);
     AddWidget(path, "Boot to VS CSS", WIDGET_CVAR_CHECKBOX)
