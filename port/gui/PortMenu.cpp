@@ -1119,6 +1119,13 @@ void PortMenu::AddMenuSettings() {
         .Options(CheckboxOptions().Tooltip(
             "Divides knockback by 2.5 instead of 1.875 when computing hitstun, so "
             "combos feel like Melee. Requires the HitstunMelee mod to be loaded."));
+    AddWidget(path, "Ledge Trump", WIDGET_CVAR_CHECKBOX)
+        .CVar("mods.ledgetrump.enabled")
+        .RaceDisable(false)
+        .Options(CheckboxOptions().Tooltip(
+            "Grabbing a ledge ejects the current holder (tumble + push away), "
+            "removing ledge hogging like Smash 4 / Ultimate. Requires the "
+            "LedgeTrump mod to be loaded."));
     AddWidget(path, "DI Style", WIDGET_CVAR_COMBOBOX)
         .CVar("mods.di.style")
         .RaceDisable(false)
