@@ -106,6 +106,15 @@ static const std::map<int32_t, const char*> kHitboxViewMap = {
     { 2, "Outline + opaque hurtboxes" },
 };
 
+// Mirrors the DI styles of Smash Remix's src/DI.asm. Ultimate is Remix's
+// approximation ("not accurate, just weaker SDI"), applied by the DIUltimate mod.
+static const std::map<int32_t, const char*> kDIStyleMap = {
+    { 0, "Normal" },
+    { 1, "Japanese" },
+    { 2, "Ultimate" },
+};
+
+
 // Bundled (in-archive) post-process shaders get a friendly label
 // in the picker. Names not in this map render with the shader's
 // short name directly (the user-supplied taxonomy is good enough).
@@ -1110,6 +1119,33 @@ void PortMenu::AddMenuSettings() {
         .Options(CheckboxOptions().Tooltip(
             "Divides knockback by 2.5 instead of 1.875 when computing hitstun, so "
             "combos feel like Melee. Requires the HitstunMelee mod to be loaded."));
+    AddWidget(path, "DI Style", WIDGET_CVAR_COMBOBOX)
+        .CVar("mods.di.style")
+        .RaceDisable(false)
+        .Options(ComboboxOptions()
+                     .Tooltip("Smash DI distance multiplier applied during hitlag.\n"
+                              "- Normal: 2.1 (international vanilla)\n"
+                              "- Japanese: 1.5 (JP SSB64 balance)\n"
+                              "- Ultimate: ~0.6 (Remix's weaker-SDI approximation)\n"
+                              "Requires the DIUltimate mod to be loaded.")
+                     .ComboMap(kDIStyleMap)
+                     .DefaultIndex(0));
+    for (int port = 1; port <= 4; port++) {
+        char label[32];
+        char cvar[32];
+        snprintf(label, sizeof(label), "DI Multiplier P%d", port);
+        snprintf(cvar, sizeof(cvar), "mods.di.mult.p%d", port);
+        AddWidget(path, label, WIDGET_CVAR_SLIDER_FLOAT)
+            .CVar(cvar)
+            .RaceDisable(false)
+            .Options(FloatSliderOptions()
+                         .Tooltip("Extra DI multiplier for this controller port. "
+                                  "0 disables the extra multiplier for that port "
+                                  "(vanilla behavior). Requires the DIUltimate mod.")
+                         .Min(0.0f)
+                         .Max(3.0f)
+                         .DefaultValue(1.0f));
+    }
 
     // --- Quality-of-Life (still in Gameplay sidebar) ---
     AddWidget(path, "Quality-of-Life", WIDGET_SEPARATOR_TEXT);

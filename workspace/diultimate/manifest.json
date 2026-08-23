@@ -1,0 +1,10 @@
+{
+    "name": "DIUltimate",
+    "main": "build.gen",
+    "version": "1.0.0",
+    "website": "https://example.com",
+    "description": "DI styles: Normal / Japanese / Ultimate, plus a per-port DI multiplier (Remix src/DI.asm). Configure in Settings > Gameplay > Smash Remix Mods.",
+    "author": "ssb64-port",
+    "license": "MIT",
+    "code-version": 1
+}
