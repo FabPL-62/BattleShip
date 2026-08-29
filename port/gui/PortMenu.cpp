@@ -1126,6 +1126,14 @@ void PortMenu::AddMenuSettings() {
             "Grabbing a ledge ejects the current holder (tumble + push away), "
             "removing ledge hogging like Smash 4 / Ultimate. Requires the "
             "LedgeTrump mod to be loaded."));
+    AddWidget(path, "Perfect Shield", WIDGET_CVAR_CHECKBOX)
+        .CVar("mods.perfectshield.enabled")
+        .RaceDisable(false)
+        .Options(CheckboxOptions().Tooltip(
+            "Melee-style perfect shield: attacks blocked while the shield is "
+            "rising cause no stun, and projectiles/items caught in the first "
+            "~2 frames are reflected back. Requires the PerfectShield mod to "
+            "be loaded."));
     AddWidget(path, "DI Style", WIDGET_CVAR_COMBOBOX)
         .CVar("mods.di.style")
         .RaceDisable(false)

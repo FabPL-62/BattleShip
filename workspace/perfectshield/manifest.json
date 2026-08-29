@@ -1,0 +1,10 @@
+{
+    "name": "PerfectShield",
+    "main": "build.gen",
+    "version": "1.0.0",
+    "website": "https://example.com",
+    "description": "Melee-style Perfect Shield: no shield stun when hit during shield rise, plus projectile/item reflection in the first ~2 frames (Remix src/PerfectShield.asm). Toggle in Settings > Gameplay > Smash Remix Mods.",
+    "author": "ssb64-port",
+    "license": "MIT",
+    "code-version": 1
+}
