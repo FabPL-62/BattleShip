@@ -1,0 +1,10 @@
+{
+    "name": "DKUlt",
+    "main": "build.gen",
+    "version": "1.0.0",
+    "website": "https://example.com",
+    "description": "Fase 2a: DKUlt (clon de DK) registrado en fighter_registry como fighter sintetico del CharacterEngine. Data layer: ft_data de DK + costumes + resultados. Sin CSS/spawn aun.",
+    "author": "ssb64-port",
+    "license": "MIT",
+    "code-version": 1
+}

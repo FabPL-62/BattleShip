@@ -226,6 +226,12 @@ void  port_fighter_register(int fkind, const FighterDescriptor *src);
  * accessors below return safe defaults instead. */
 const FighterDescriptor *port_fighter_descriptor(int fkind);
 
+/* CharacterEngine: clone an existing row (typically a vanilla parent the
+ * new fighter is a clone of, e.g. DK for DKUlt) into dst so a mod only has
+ * to override the fields it actually changes. Returns 0 on success, -1 if
+ * parent_fkind is unregistered or dst is NULL. */
+int port_fighter_clone_from(int parent_fkind, struct FighterDescriptor *dst);
+
 struct FTData              *port_fighter_data(int fkind);
 struct FTStatusDesc        *port_fighter_special_descs(int fkind);
 int                         port_fighter_special_descs_count(int fkind);

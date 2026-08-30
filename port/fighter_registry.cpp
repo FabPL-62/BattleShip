@@ -49,6 +49,18 @@ const FighterDescriptor *port_fighter_descriptor(int fkind)
     return get(fkind);
 }
 
+/* CharacterEngine: clone an existing row (typically a vanilla parent the
+ * new fighter is a clone of) into dst so the mod only has to override the
+ * fields it actually changes. Returns 0 on success. */
+int port_fighter_clone_from(int parent_fkind, FighterDescriptor *dst)
+{
+    if (dst == nullptr) return -1;
+    const FighterDescriptor *src = get(parent_fkind);
+    if (src == nullptr) return -1;
+    *dst = *src;
+    return 0;
+}
+
 struct FTData *port_fighter_data(int fkind)
 {
     if (const auto *r = get(fkind)) return r->ft_data;
