@@ -9,11 +9,14 @@
  * touching the fixed-12 CSS grid.
  */
 #include <libultraship/bridge/consolevariablebridge.h>
+#include "character_engine.h"
 
 extern "C" int port_dkult_spawn(int player)
 {
     int target = CVarGetInteger("mods.dkult.spawnplayer", -1);
     if (target < 0) return 0;
+    if (player == target && CVarGetInteger("mods.dkult.validateassets", 0))
+        port_ce_probe_dkult_assets();
     return (player == target) ? 1 : 0;
 }
 

@@ -82,6 +82,16 @@ static void DKUltRegister(void)
 }
 
 MOD_INIT() {
+    /* Register immutable source resources. The bridge loads relocated copies
+     * on demand into scene heaps; FTData still inherits DK until ASSETS-B. */
+    extern int port_ce_load_character_assets(const char* charName);
+    int rc = port_ce_load_character_assets("dkult");
+    if (rc == 0) {
+        mod_log("[DKUlt] CharacterEngine source assets registered OK\n");
+    } else {
+        mod_log("[DKUlt] CharacterEngine asset load FAILED rc=%d\n", rc);
+    }
+
     DKUltRegister();
 }
 

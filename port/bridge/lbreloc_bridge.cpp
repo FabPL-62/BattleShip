@@ -26,6 +26,7 @@
 #endif
 
 #include "resource/RelocFile.h"
+#include "character_engine.h"
 #include "resource/RelocFileTable.h"
 #include "resource/RelocPointerTable.h"
 #include "bridge/lbreloc_byteswap.h"
@@ -312,6 +313,7 @@ static void portRelocFixupFighterFigatree(void *ram_dst, size_t copy_size, const
 
 static std::shared_ptr<RelocFile> portLoadRelocResource(u32 file_id)
 {
+	if (auto resource = port_ce_find_resource(file_id)) return resource;
 	if (file_id >= RELOC_FILE_COUNT || gRelocFileTable[file_id] == NULL)
 	{
 		spdlog::error("lbReloc bridge: invalid file_id {} (0x{:08X})", file_id, file_id);
